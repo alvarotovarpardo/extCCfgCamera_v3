@@ -64,8 +64,8 @@ def create_extCCfgCamGeneral_Header(HeaderFiles):
 #%%
 
 def create_extCCfgCamGeneral_Cpp(CppFiles):
-    #copyInitParams(CppFiles)
-    #classifyInitDefault()
+    copyInitParams(CppFiles)
+    classifyInitDefault()
     initContent_file = os.path.join(os.getcwd(), 'bin', 'cpp', 'initDefault', 'initDefaultContent.cpp')
     init_file = os.path.join(os.path.join(os.getcwd(), 'C_Code', 'config_camera.cpp'))
 

@@ -3,6 +3,21 @@ import re
 from CCfgCamGeneral_properties import separatePrivate
 from CCfgCamGeneral_methods import unifyEnums
 
+
+# función para extraer el contenido de una clase 
+# usado para initDefault y config_base
+def extractClassParams(init_path, pattern):
+    with open(init_path, 'r') as f:
+        content = f.read()
+
+    match = re.search(pattern, content, re.DOTALL)
+    
+    if match:
+        return match.group(0)
+    else:
+        return None
+
+
 def isolateClasses(input_files):
     # Carpeta con las clases
     raw_folder_location = os.path.join(os.getcwd(), 'bin', 'header', 'build', 'classes_raw')
@@ -270,18 +285,6 @@ def classifyContent():
 # Aquí van las funciones de initDefault(), que serán llamadas en create_extCCfgFiles
 # ----------------------------------------------------------------------------------
 
-# función para extraer el contenido de un initDefault
-def extractInitParams(init_path):
-    with open(init_path, 'r') as f:
-        content = f.read()
-
-    pattern = r'void\s+CCfgCamGeneral::initDefault\(\)\s*{[^}]*}'
-    match = re.search(pattern, content, re.DOTALL)
-    
-    if match:
-        return match.group(0)
-    else:
-        return None
 
 
 # Copiamos los initDefault de cada SW a un .cpp 
@@ -291,11 +294,14 @@ def copyInitParams(init_path):
         'init_analytics.cpp',
         'init_lite.cpp'
     ]
+    
+    init_pattern = r'void\s+CCfgCamGeneral::initDefault\(\)\s*{[^}]*}'
+
     output_paths = [os.path.join(os.path.join(os.getcwd(), 'bin\\cpp\\initDefault\\init_raw'), file) for file in files]
     if not os.path.exists(os.path.join(os.getcwd(), 'bin\\cpp\\initDefault\\init_raw')):
         os.makedirs(os.path.join(os.getcwd(), 'bin\\cpp\\initDefault\\init_raw'))
     for input_path, output_path in zip(init_path, output_paths):
-        content = extractInitParams(input_path)
+        content = extractClassParams(input_path, init_pattern)
         if content:
             with open(output_path, 'w') as f:
                 f.write(content)
@@ -400,20 +406,72 @@ def classifyInitDefault():
 
 
 
+#%%
 
+##############################################################################
+######################## config_base modules #################################
+##############################################################################
+        
+# ----------------------------------------------------------------------------------
+# Aquí van las funciones de config_base.h, llamadas en create_configBase
+# ----------------------------------------------------------------------------------
+    
+
+# Leemos y copiamos el configBase de Redlook...
+def copyConfigBaseHeader(init_path):
+    file = 'config_base.h'
+    
+    configBase_pattern = r'class\s+CCfgClass\s*{(?:[^{}]*|{[^{}]*})*};'
+    
+    output_path = os.path.join(os.getcwd(), 'bin', 'header', 'config_base', 'config_base_raw')
+    os.makedirs(output_path, exist_ok = True)
+    output_file = os.path.join(output_path, file)
+    
+    configBaseHeader_content = extractClassParams(init_path, configBase_pattern)
+    
+    if configBaseHeader_content:
+        with open(output_file, 'w') as f:
+            f.write(configBaseHeader_content)
+        print(f'\nconfig_base.h leído y copiado a bin.\n')
+    else:
+        print(f'No se encontró config_base.h en {init_path}')
     
     
+# ... le ponemos un filtro de contenido ...
+def readConfigBaseHeader(file):
+    with open(file,'r') as f:
+        parameters = []
+        for line in f:
+            stripped_line = line.strip()
+            
+            if 'STRCPY' in stripped_line:
+                stripped_line = re.sub('STRCPY', 'strcpy_s', stripped_line)
+            if 'STRNCPY' in stripped_line:
+                stripped_line = re.sub('STRNCPY', 'strncpy_s', stripped_line)
+            if 'Crypt' in stripped_line:
+                stripped_line = '//' + stripped_line
+            if 'QByte' in stripped_line:
+                stripped_line = '//' + stripped_line
+            if 'QString' in stripped_line:
+                stripped_line = '//' + stripped_line
+            if 'Jzon' in stripped_line:
+                stripped_line = '//' + stripped_line
+            
+            
+            if stripped_line and stripped_line not in parameters: # Evitamos duplicados
+                parameters.append(stripped_line)
+    return parameters
 
+# ... y generamos el archivo que sí vamos a incluir en el .h
+def classifyConfigBaseHeader():
+    
+    input_file = os.path.join(os.getcwd(), 'bin', 'header', 'config_base', 'config_base_raw', 'config_base.h')
+    output_file = os.path.join(os.getcwd(), 'bin', 'header', 'config_base', 'config_base.h')
+    
+    configBaseContent = readConfigBaseHeader(input_file)
+    # Copiar el contenido directamente al archivo unificado
+    with open(output_file, 'w', encoding='utf-8') as output:
+        output.write("\n".join(configBaseContent))
+    print("config_base.h classified in bin")
 
-
-
-
-
-
-
-
-
-
-
-
-                    
+                
