@@ -2,7 +2,7 @@
 
 
 
-void extendedCCfgCamGeneral:: initDefault()
+void extendedCCfgCamGeneral::initDefault()
 {
 	//crypto = new SimpleCrypt(Q_UINT64_C(0x0c2ad4a4acb9f023));
 	strcpy_s(m_szDescription, "");
@@ -172,7 +172,7 @@ void extendedCCfgCamGeneral:: initDefault()
 	m_szPeriodicDeleteAtTime[49] = '\0';
 	m_bIsDummy = false;
 
-	  ################## Distributed ###################
+	  //################## Distributed ###################*/
 	m_iFocalLength = 35;
 	m_iPixelPitch = 17;
 	m_bStretchingRegion = false;
@@ -182,7 +182,7 @@ void extendedCCfgCamGeneral:: initDefault()
 	m_iPTLimitPanLeft = -1;
 	m_iPTLimitPanRight = -1;
 
-	  ################## Analytics ###################
+	 //#################### Analytics ###################*/
 	m_szDescription[19] = '\0';
 	m_eConfigCameraMode = CONFIG_MODE_OTHER;
 	m_bElectronicOld = false;
@@ -247,7 +247,7 @@ void extendedCCfgCamGeneral:: initDefault()
 	m_bEdgeRemove = false;
 	m_bOCR = false;
 	m_iOCRPort = 0;
-	  ###################### Lite ######################
+	  //###################### Lite ######################*/
 	m_iBuffMaxLengh = 25;
 	m_iTamVectorData = 25;
 	m_iTFrame = 60;
@@ -278,4 +278,4 @@ void extendedCCfgCamGeneral:: initDefault()
 	m_dGasDensity = 0.0;
 
 
-};}
+}

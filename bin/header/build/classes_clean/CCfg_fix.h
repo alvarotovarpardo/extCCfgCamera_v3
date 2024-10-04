@@ -480,8 +480,9 @@ private:
     bool m_bAdamRelay;
     bool m_bPulseRelay;
     char m_szAdamRelayIP[CONFIG_MAX_PATH + 1];
-    int m_iAdamRelayPort m_iMaxOperationTemperature;
-    int m_iAdamRelayPort m_iPulseRelaySeconds;
+    int m_iAdamRelayPort;
+    int m_iMaxOperationTemperature;
+    int m_iPulseRelaySeconds;
     
     bool m_bSwitchPOE;
     char m_szSwitchIP[CONFIG_MAX_PATH + 1];

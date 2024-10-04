@@ -10,8 +10,8 @@
 	
 	void initDefault();
 	void display();
-	void matchField(std::string &sAtributo, Jzon::Node &nodoValor);
-	void serializeFields(Jzon::Node &node);
+	//void matchField(std::string &sAtributo, Jzon::Node &nodoValor);
+	//void serializeFields(Jzon::Node &node);
 	
 	char *getDescription() { return m_szDescription; }
 	EnumConfigConnectionMode getConnectionMode() { return m_eConfigConnectionMode; }
@@ -347,9 +347,7 @@
 	char *getPeriodicNextCheckTime() { return m_szNextCheckTime; }
 	
 
-	/*##################################################
-	  ################## Distributed ###################
-	  ##################################################*/
+	//#################### Distributed #######################*/
 
 	int getFocalLength() { return m_iFocalLength; }
 	int getPixelPitch() { return m_iPixelPitch; }
@@ -371,10 +369,7 @@
 	bool copyBakToCam(std::string sPathCam);
 	bool copyCamToBak(std::string sPathCam);
 
-	/*##################################################
-	  ################## Analytics ###################
-	  ##################################################*/
-
+	//###################### Analytics ######################*/
 	EnumConfigCameraMode getConfigCameraMode() { return m_eConfigCameraMode; }
 	void setConfigCameramode(EnumConfigCameraMode eConfigCameraMode) { m_eConfigCameraMode = eConfigCameraMode; }
 	//void setConnectionChain(QString sConnectionChain) { strcpy_s(m_szConnectionChain,sConnectionChain.toStdString().c_str()); }
@@ -479,10 +474,7 @@
 	void setEdgeRemove(bool bEdgeRemove) { m_bEdgeRemove = bEdgeRemove; }
 	bool getEdgeRemove() { return m_bEdgeRemove; }
 
-	/*##################################################
-	  ###################### Lite ######################
-	  ##################################################*/
-
+	//###################### Lite ######################
 	int getTamVectorData() { return m_iTamVectorData; }
 	void setTamVectorData(int iTamVectorData) { m_iTamVectorData = iTamVectorData; }
 	//********************************* getters/setters mileva cam parameters *********************************

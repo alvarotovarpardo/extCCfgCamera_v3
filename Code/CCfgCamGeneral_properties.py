@@ -4,22 +4,22 @@ import shutil
 
 # Función para separar el tipo de dato y las propiedades en líneas separadas
 def separateTypeProperties(line):
-    # Eliminamos comentarios en línea y limpiamos espacios
+    # Eliminamos comentarios en línea
     #line = re.sub(r'/\*.*\*/', '', line).strip()
-    #line = re.sub(r'\s+,', ',', line)
+    
+    # Limpiamos espacios previos a comas
+    line = re.sub(r'\s+,', ',', line)
 
     # Expresión regular para capturar el tipo de dato y las variables
     pattern = r'(\w[\w\s\*]+)\s+([\w\s,=\[\]\+\(\)]+);'
     match = re.match(pattern, line)
 
     if match:
-        type_data = match.group(1).strip()  # Tipo de dato
-        variables = match.group(2).strip()  # Nombres de variables
+        type_data = match.group(1).strip() 
+        variables = match.group(2).strip()
 
-        # Separar las variables por comas y eliminar espacios adicionales
         separated_vars = [var.strip() for var in re.split(r'\s*,\s*', variables) if var.strip()]
 
-        # Crear una lista de líneas con cada variable separada
         separated_lines = [f"{type_data} {var};" for var in separated_vars]
 
         return separated_lines

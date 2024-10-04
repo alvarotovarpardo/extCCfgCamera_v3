@@ -42,7 +42,7 @@ def createConfigBaseHeader(input_file):
         
     
     
-    print('config_base.h creado en C_Code')
+    print('\nconfig_base.h created in C_Code folder\n')
     
     
 def createConfigBaseCpp():
@@ -58,6 +58,8 @@ def createConfigBaseCpp():
         f.write('{\n')
         f.write('\n')
         f.write('}\n')
+        
+    
         
         
         

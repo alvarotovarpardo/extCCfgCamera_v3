@@ -112,7 +112,7 @@ def readAndCleanClass(input_file, public = True):
                         line = re.sub('STRCPY','strcpy_s', line)
                     if 'STRNCPY' in line:
                         line = re.sub('STRNCPY', 'strncpy_s', line)
-                    if 'Crypto' in line:
+                    if 'Crypt' in line:
                         line = "//" + line
                     if 'QString' in line:
                         line = "//" + line
@@ -120,12 +120,21 @@ def readAndCleanClass(input_file, public = True):
                         line = "//" + line
                     if 'CCfgCamGeneral' in line:
                         line = re.sub('CCfgCamGeneral', 'extendedCCfgCamGeneral', line)
+                    if 'Jzon' in line:
+                        line = "//" + line
                     
                     ############# PRIVATE #################
                 if not public:
-                    # Separamos variable y tipo de dato
-                    print("En obras...")
-                    
+                    if 'QByte' in line:
+                        line = "//" + line
+                    if 'STRCPY' in line:
+                        line = re.sub('STRCPY','strcpy_s', line)
+                    if 'STRNCPY' in line:
+                        line = re.sub('STRNCPY', 'strncpy_s', line)
+                    if 'Crypt' in line:
+                        line = "//" + line
+                    if 'QString' in line:
+                        line = "//" + line
                 # Si encontramos un enum, lo agregamos a la lista de enums
                 if public and enum_pattern.match(line):
                     enums.append(line)
@@ -179,7 +188,7 @@ def classifyContent():
                 for method in content_fix:
                     output.write('\t' + method + '\n')
             with open(enum_output, 'w', encoding='utf-8') as output:
-                output.write('\n\t#################### Fix #######################\n\n')
+                output.write('\n\t//#################### Fix #######################*/\n\n')
                 for enum in enum_fix:
                     output.write(enum + '\n')
     
@@ -198,14 +207,13 @@ def classifyContent():
                 for method in content_distributed:
                     if method not in content_fix:
                         if flag == 0:
-                            output.write('\n\t/*##################################################\n')
-                            output.write('\t  ################## Distributed ###################\n')
-                            output.write('\t  ##################################################*/\n\n')
+                            output.write('\n\t//#################### Distributed #######################*/\n\n')
+
                             flag = 1
                         output.write('\t' + method + '\n')
             if isPublic:
                 with open(enum_output, 'a', encoding='utf-8') as output:
-                    output.write('\n\t#################### Distributed #######################\n\n')
+                    output.write('\n\t//#################### Distributed #######################*/\n\n')
                     for enum in enum_distributed:
                         if enum not in enum_fix:
                             output.write(enum + '\n')
@@ -224,14 +232,12 @@ def classifyContent():
                 for method in content_analytics:
                     if method not in content_fix and method not in content_distributed:
                         if flag == 0:
-                            output.write('\n\t/*##################################################\n')
-                            output.write('\t  ################## Analytics ###################\n')
-                            output.write('\t  ##################################################*/\n\n')
+                            output.write('\n\t//###################### Analytics ######################*/\n')
                             flag = 1
                         output.write('\t' + method + '\n')
                 if isPublic:
                     with open(enum_output, 'a', encoding='utf-8') as output:
-                        output.write('\n\t#################### Analytics #######################\n\n')
+                        output.write('\n\t//#################### Analytics #######################*/\n\n')
                         for enum in enum_analytics:
                             if enum not in enum_fix and enum not in enum_distributed:
                                 output.write(enum + '\n')
@@ -250,9 +256,7 @@ def classifyContent():
                 for method in content_lite:
                     if method not in content_fix and method not in content_distributed and method not in content_analytics:
                         if flag == 0:
-                            output.write('\n\t/*##################################################\n')
-                            output.write('\t  ###################### Lite ######################\n')
-                            output.write('\t  ##################################################*/\n\n')
+                            output.write('\n\t//###################### Lite ######################\n')
                             flag = 1
                         output.write('\t' + method + '\n')
             if isPublic:
@@ -270,10 +274,7 @@ def classifyContent():
             unifyEnums()
         else:
             Content = 'Properties'
-        print("\n\n----------------------------------------------------")
-        print(f"    {Content} successfully created: {output_file}.")
-        print("----------------------------------------------------\n")
-    
+        print(f"config_camera.h {Content} classified at {output_file}.")    
         
 #%%
 
@@ -305,9 +306,9 @@ def copyInitParams(init_path):
         if content:
             with open(output_path, 'w') as f:
                 f.write(content)
-            print(f"Contenido copiado a {output_path}")
         else:
             print(f"No se encontró la función initDefault en {input_path}")
+    print(f"initDefault content copied to {output_path}")
 
 
 # Limpiamos los initDefault y creamos init_clean. Aquí se imponen los filtros sobre qué
@@ -343,7 +344,7 @@ def readParametersInit(file):
     return parameters
 
 
-# ... y con ello creamos la carpeta init_clean...
+# ... y con ello creamos el archivo filtrado ...
 
 def classifyInitDefault():
     
@@ -369,7 +370,7 @@ def classifyInitDefault():
         for method in content_distributed:
             if method not in content_fix:
                 if flag == 0:
-                    output.write('\n\t  ################## Distributed ###################\n')
+                    output.write('\n\t  //################## Distributed ###################*/\n')
                     flag = 1
                 output.write('\t' + method + '\n')
                     
@@ -383,7 +384,7 @@ def classifyInitDefault():
         for method in content_analytics:
             if method not in content_fix and method not in content_distributed:
                 if flag == 0:
-                    output.write('\n\t  ################## Analytics ###################\n')
+                    output.write('\n\t //#################### Analytics ###################*/\n')
                     flag = 1
                 output.write('\t' + method + '\n')
 
@@ -396,13 +397,12 @@ def classifyInitDefault():
         for method in content_lite:
             if method not in content_fix and method not in content_distributed and method not in content_analytics:
                 if flag == 0:
-                    output.write('\t  ###################### Lite ######################\n')
+                    output.write('\t  //###################### Lite ######################*/\n')
                     flag = 1
                 output.write('\t' + method + '\n')
 
-    print("\n\n----------------------------------------------------")
-    print(f"    initDefault content successfully created: {output_file}.")
-    print("----------------------------------------------------\n")
+
+    print(f"initDefault() content classified at {output_file}.")
 
 
 
@@ -432,7 +432,7 @@ def copyConfigBaseHeader(init_path):
     if configBaseHeader_content:
         with open(output_file, 'w') as f:
             f.write(configBaseHeader_content)
-        print(f'\nconfig_base.h leído y copiado a bin.\n')
+        print(f'\nconfig_base.h read and copied to {output_path}.\n')
     else:
         print(f'No se encontró config_base.h en {init_path}')
     
@@ -472,6 +472,6 @@ def classifyConfigBaseHeader():
     # Copiar el contenido directamente al archivo unificado
     with open(output_file, 'w', encoding='utf-8') as output:
         output.write("\n".join(configBaseContent))
-    print("config_base.h classified in bin")
+    print("config_base.h classified in {output_file}")
 
                 

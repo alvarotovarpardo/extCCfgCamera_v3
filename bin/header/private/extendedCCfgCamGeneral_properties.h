@@ -1,4 +1,4 @@
-	SimpleCrypt *crypto;
+	//SimpleCrypt *crypto;
 	EnumConfigConnectionMode m_eConfigConnectionMode;
 	char m_szConnectionChain[CONFIG_MAX_PATH + 1];
 	char m_szDescription[50];
@@ -24,7 +24,7 @@
 	int m_iMatMetaDataRight;
 	char m_szCameraModelName[20];
 	char m_szCameraHierarchy[20];
-	QByteArray m_baPartNumber;
+	//QByteArray m_baPartNumber;
 	double m_dMediaTemp;
 	double m_dIFOV;
 	double m_dOffsetIfov_x;
@@ -129,8 +129,9 @@
 	bool m_bAdamRelay;
 	bool m_bPulseRelay;
 	char m_szAdamRelayIP[CONFIG_MAX_PATH + 1];
-	int m_iAdamRelayPort m_iMaxOperationTemperature;
-	int m_iAdamRelayPort m_iPulseRelaySeconds;
+	int m_iAdamRelayPort;
+	int m_iMaxOperationTemperature;
+	int m_iPulseRelaySeconds;
 	
 	bool m_bSwitchPOE;
 	char m_szSwitchIP[CONFIG_MAX_PATH + 1];
@@ -167,9 +168,7 @@
 	
 	bool m_bIsDummy;
 
-	/*##################################################
-	  ################## Distributed ###################
-	  ##################################################*/
+	//#################### Distributed #######################*/
 
 	int m_iFocalLength;
 	int m_iPixelPitch;
@@ -181,10 +180,7 @@
 	int m_iPTLimitPanLeft;
 	int m_iPTLimitPanRight;
 
-	/*##################################################
-	  ################## Analytics ###################
-	  ##################################################*/
-
+	//###################### Analytics ######################*/
 	EnumConfigCameraMode m_eConfigCameraMode;
 	char m_sFuel[20];
 	bool m_bElectronicOld;
@@ -236,10 +232,7 @@
 	bool m_bGasEmission;
 	bool m_bEdgeRemove;
 
-	/*##################################################
-	  ###################### Lite ######################
-	  ##################################################*/
-
+	//###################### Lite ######################
 	int m_iTamVectorData;
 	int m_iSizeClaheSkip;
 	int m_iSizeClaheEnhanced;

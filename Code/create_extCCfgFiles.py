@@ -40,20 +40,19 @@ def create_extCCfgCamGeneral_Header(HeaderFiles):
         f.write("class extendedCCfgCamGeneral : public CCfgClass\n")
         f.write("{\n")
         
-            # Publico
-        f.write("public:\n")
-        f.write(methods_content)
-        
-        f.write("\n\n\n")
-        
-            # Private
+        # Private
         f.write("private:\n")
         f.write(properties_content)
         
         f.write("\n")
         
+        # Publico
+        f.write("public:\n")
+        f.write(methods_content)
+                
+        
         # ending
-        f.write("\n};")
+        f.write("\n\n};")
         
         
         
@@ -85,14 +84,13 @@ def create_extCCfgCamGeneral_Cpp(CppFiles):
         
         
         # Class
-        f.write("void extendedCCfgCamGeneral:: initDefault()\n")
+        f.write("void extendedCCfgCamGeneral::initDefault()\n")
         f.write("{\n")
         f.write(initContent)
         f.write("\n")
         
         # ending
-        f.write("\n};")
+        f.write("\n}")
         
 
-        f.write("}")
     print(f"config_camera.cpp succesfully merged at {init_file}.")

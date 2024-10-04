@@ -1,10 +1,18 @@
 import os
 import sys
+import importlib
 sys.path.append(os.path.join(os.getcwd(),'Code'))
+import create_configBase
+import create_extCCfgFiles
+import create_main
+
+importlib.reload(create_extCCfgFiles)
+importlib.reload(create_configBase)
+importlib.reload(create_main)
 
 from create_extCCfgFiles import create_extCCfgCamGeneral_Header, create_extCCfgCamGeneral_Cpp
 from create_configBase import createConfigBaseHeader, createConfigBaseCpp
-
+from create_main import createMainCpp
 CCfgHeaderFiles = [
     r"C:\Users\Projects\sw_redlook_Fix\gui\util\config_camera.h",
     r"C:\Users\Projects\sw_redlook_distributed\gui\util\config_camera.h",
@@ -36,3 +44,6 @@ createConfigBaseHeader(headerConfigBase)
 
 # Creamos el constructor y destructor de CCfgClass
 createConfigBaseCpp()
+
+# Creamos el main
+createMainCpp()

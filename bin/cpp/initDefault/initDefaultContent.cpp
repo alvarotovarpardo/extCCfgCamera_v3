@@ -166,7 +166,7 @@
 	m_szPeriodicDeleteAtTime[49] = '\0';
 	m_bIsDummy = false;
 
-	  ################## Distributed ###################
+	  //################## Distributed ###################*/
 	m_iFocalLength = 35;
 	m_iPixelPitch = 17;
 	m_bStretchingRegion = false;
@@ -176,7 +176,7 @@
 	m_iPTLimitPanLeft = -1;
 	m_iPTLimitPanRight = -1;
 
-	  ################## Analytics ###################
+	 //#################### Analytics ###################*/
 	m_szDescription[19] = '\0';
 	m_eConfigCameraMode = CONFIG_MODE_OTHER;
 	m_bElectronicOld = false;
@@ -241,7 +241,7 @@
 	m_bEdgeRemove = false;
 	m_bOCR = false;
 	m_iOCRPort = 0;
-	  ###################### Lite ######################
+	  //###################### Lite ######################*/
 	m_iBuffMaxLengh = 25;
 	m_iTamVectorData = 25;
 	m_iTFrame = 60;
