@@ -13,9 +13,19 @@ def create_extCCfgCamGeneral_Header(HeaderFiles):
     
     # Leer el archivo de propiedades
     with open(properties_path, 'r') as properties_file:
-        properties_content = properties_file.read()
+        properties_with_enums = properties_file.readlines()
         
-
+    # Nos quitamos los enums de en medio y los colocamos al final del file
+        # Cuidado!! Con esto convertimos properties en lista!!
+    enum_properties = []
+    properties_content = []
+    
+    for line in properties_with_enums:
+        if 'Enum' in line:
+            enum_properties.append(line)
+        else:
+            properties_content.append(line)
+    
     # Leer el archivo de métodos
     with open(methods_path, 'r') as methods_file:
         methods_content = methods_file.read()
@@ -42,7 +52,7 @@ def create_extCCfgCamGeneral_Header(HeaderFiles):
         
         # Private
         f.write("private:\n")
-        f.write(properties_content)
+        f.write("".join(properties_content)) # Al quitar enums hemos convertido en lista
         
         f.write("\n")
         
@@ -50,6 +60,11 @@ def create_extCCfgCamGeneral_Header(HeaderFiles):
         f.write("public:\n")
         f.write(methods_content)
                 
+        # Private con enums: añadimos los enums al final. 
+        f.write("private:\n")
+        f.write("".join(enum_properties))
+        
+        f.write("\n")
         
         # ending
         f.write("\n\n};")

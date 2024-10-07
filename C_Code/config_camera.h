@@ -12,7 +12,6 @@ class extendedCCfgCamGeneral : public CCfgClass
 {
 private:
 	//SimpleCrypt *crypto;
-	EnumConfigConnectionMode m_eConfigConnectionMode;
 	char m_szConnectionChain[CONFIG_MAX_PATH + 1];
 	char m_szDescription[50];
 	char m_szSerialNumber[CONFIG_MAX_PATH + 1];
@@ -28,8 +27,6 @@ private:
 	int m_iRightCutout;
 	int m_iTopCutout;
 	int m_iBottomCutout;
-	EnumConfigCameraType m_eConfigCameraType;
-	EnumConfigSensorType m_eConfigSensorType;
 	bool m_bShowCurrentFrame;
 	bool m_bShowSimulateName;
 	bool m_bEnableAll;
@@ -78,7 +75,6 @@ private:
 	
 	bool m_bHasLaser;
 	int m_iLaserCOM;
-	EnumConfigLaserType m_eConfigLaserType;
 	int m_iPortThirdPartyOnvif;
 	int m_iPortThirdPartyHttp;
 	int m_iPortThirdPartyRtsp;
@@ -194,7 +190,6 @@ private:
 	int m_iPTLimitPanRight;
 
 	//###################### Analytics ######################*/
-	EnumConfigCameraMode m_eConfigCameraMode;
 	char m_sFuel[20];
 	bool m_bElectronicOld;
 	char m_szPlaybackSpeed[20];
@@ -797,6 +792,13 @@ public:
 	double getGasDensity() { return m_dGasDensity; }
 	void setQSensitivity(char *szSensitivity) { strcpy_s(m_szSensitivity, szSensitivity); }
 	char *getQSensitivity() { return m_szSensitivity; }
+private:
+	EnumConfigConnectionMode m_eConfigConnectionMode;
+	EnumConfigCameraType m_eConfigCameraType;
+	EnumConfigSensorType m_eConfigSensorType;
+	EnumConfigLaserType m_eConfigLaserType;
+	EnumConfigCameraMode m_eConfigCameraMode;
+
 
 
 };

@@ -276,6 +276,48 @@ def classifyContent():
             Content = 'Properties'
         print(f"config_camera.h {Content} classified at {output_file}.")    
         
+        
+
+
+# Función para comentar duplicados
+
+def commentDuplicate(private = True):
+    if private:
+        output_lines = []
+        properties = {}  
+        
+        
+        input_file = os.path.join(os.getcwd(), 'bin', 'Header', 'private', 'extendedCCfgCamGeneral_properties.h')
+        
+        with open(input_file, 'r') as f:
+            lines = f.readlines()
+        
+        property_pattern = re.compile(r'(\w+)\s+m_\w(\w+);')  # Para capturar la propiedad
+        
+        
+        for line in lines:
+            # Buscar propiedades
+            prop_match = property_pattern.search(line)
+            if prop_match:
+                prop_type = prop_match.group(1)  # int, double, etc.
+                prop_name = prop_match.group(2)  # Nombre de la propiedad sin 'm_'
+                
+                # Si ya existe una propiedad con el mismo nombre, comentar la línea actual
+                if prop_name in properties:
+                    print(f"Propiedad duplicada encontrada: {line.strip()}. Comentando...")
+                    output_lines.append("// " + line) 
+                else:
+                    properties[prop_name] = prop_type
+                    output_lines.append(line) 
+                continue  
+        
+            # No miramos lo que no buscamos
+            output_lines.append(line)
+        
+        # Reescribimos...
+        with open(input_file, 'w') as f:
+            f.writelines(output_lines)
+        
 #%%
 
 ##############################################################################
@@ -405,7 +447,6 @@ def classifyInitDefault():
     print(f"initDefault() content classified at {output_file}.")
 
 
-
 #%%
 
 ##############################################################################
@@ -473,5 +514,8 @@ def classifyConfigBaseHeader():
     with open(output_file, 'w', encoding='utf-8') as output:
         output.write("\n".join(configBaseContent))
     print("config_base.h classified in {output_file}")
+
+
+
 
                 
