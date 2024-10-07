@@ -2,7 +2,7 @@
 
 Este repositorio tiene como objetivo la creación de las clases CCfgCamGeneral de manera extendida y unificada para las cuatro aplicaciones de Redlook.
 
-La ejecución del archivo main.py genera un output en la carpeta 'C_Code', conteniendo:
+La ejecución del archivo main.py genera el output en la carpeta 'C_Code', conteniendo:
 1) config_camera.h -> Clase extendedCCfgCamGeneral con properties/getters&setters de la configuración de la cámara
 2) config_camera.cpp -> Inicialización de parámetros (función initDefault())
 3) config_base.h -> clase de la que config_camera.h hereda. Aquí se define initDefault()
