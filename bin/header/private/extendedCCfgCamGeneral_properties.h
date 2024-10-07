@@ -170,8 +170,8 @@
 
 	//#################### Distributed #######################*/
 
-	int m_iFocalLength;
-	int m_iPixelPitch;
+// // // 	int m_iFocalLength;
+// // // 	int m_iPixelPitch;
 	bool m_bStretchingRegion;
 	int m_iRegionSize;
 	/* Preset limits */

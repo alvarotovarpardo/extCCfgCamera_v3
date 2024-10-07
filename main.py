@@ -13,6 +13,7 @@ importlib.reload(create_main)
 from create_extCCfgFiles import create_extCCfgCamGeneral_Header, create_extCCfgCamGeneral_Cpp
 from create_configBase import createConfigBaseHeader, createConfigBaseCpp
 from create_main import createMainCpp
+
 CCfgHeaderFiles = [
     r"C:\Users\Projects\sw_redlook_Fix\gui\util\config_camera.h",
     r"C:\Users\Projects\sw_redlook_distributed\gui\util\config_camera.h",

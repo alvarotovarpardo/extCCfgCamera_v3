@@ -8,7 +8,7 @@ extern std::mutex mtxChangeHotConfig, mtxChangePointStart, mutexDNN;
 extern std::mutex mtxChange, mtxSaveConfig;
 
 
-class extendedCCfgCamGeneral : public CCfgClass
+class ExtendedCCfgCamGeneral : public CCfgClass
 {
 private:
 	//SimpleCrypt *crypto;
@@ -179,8 +179,8 @@ private:
 
 	//#################### Distributed #######################*/
 
-	//int m_iFocalLength;
-	//int m_iPixelPitch;
+	int m_iFocalLength;
+	int m_iPixelPitch;
 	bool m_bStretchingRegion;
 	int m_iRegionSize;
 	/* Preset limits */
@@ -197,7 +197,7 @@ private:
 	char m_szEmail[50];
 	char m_szEmailCC[640];
 	bool m_bHasSensorTemperature;
-	char m_szResetUnits[10];
+	//char m_szResetUnits[10];
 	/* Variables de RIO */
 	double m_dThresholdCO;
 	double m_dThresholdNOx;
@@ -271,8 +271,8 @@ public:
 	enum EnumFocus { FOCUS_AUTO, FOCUS_DECREMENT, FOCUS_INCREMENT };
 	enum EnumConfigCameraMode { CONFIG_MODE_ETHERNET, CONFIG_MODE_OTHER, CONFIG_MODE_USB };
 	
-	extendedCCfgCamGeneral();
-	virtual ~extendedCCfgCamGeneral();
+	ExtendedCCfgCamGeneral();
+	virtual ~ExtendedCCfgCamGeneral();
 	
 	void initDefault();
 	void display();
@@ -617,8 +617,8 @@ public:
 
 	//int getFocalLength() { return m_iFocalLength; }
 	//int getPixelPitch() { return m_iPixelPitch; }
-	//void setFocalLength(int iFocalLength) { m_iFocalLength = iFocalLength; }
-	//void setPixelPitch(int iPixelPitch) { m_iPixelPitch = iPixelPitch; }
+	void setFocalLength(int iFocalLength) { m_iFocalLength = iFocalLength; }
+	void setPixelPitch(int iPixelPitch) { m_iPixelPitch = iPixelPitch; }
 	void setStretchingRegion(bool bStretchingRegion) { m_bStretchingRegion = bStretchingRegion; }
 	void setRegionSize(int iRegionSize) { m_iRegionSize = iRegionSize; }
 	bool getStretchingRegion() { return m_bStretchingRegion; }
@@ -646,9 +646,9 @@ public:
 	void setPlaybackSpeed(char *sPlaybackSpeed) { strcpy_s(m_szPlaybackSpeed, sPlaybackSpeed); }
 	char *getPlaybackSpeed() { return m_szPlaybackSpeed; }
 	void setCCTVAccessControl(bool bCCTVAccesControl) { m_bCCTVAccessControl = bCCTVAccesControl; }
-	void setPaletteBar(bool bPaletteBar) { m_bPaletteBar = bPaletteBar; }
-	void setShowDigitalLevels(bool bShowDigitalLevels) { m_bShowDigitalLevels = bShowDigitalLevels; }
-	void setShowSaturatedPixels(bool bShowSaturatedPixels) { m_bShowSaturatedPixels = bShowSaturatedPixels; }
+	//void setPaletteBar(bool bPaletteBar) { m_bPaletteBar = bPaletteBar; }
+	//void setShowDigitalLevels(bool bShowDigitalLevels) { m_bShowDigitalLevels = bShowDigitalLevels; }
+	//void setShowSaturatedPixels(bool bShowSaturatedPixels) { m_bShowSaturatedPixels = bShowSaturatedPixels; }
 	//****************************** setters email alert *********************************
 	void setEmail(char *szEmail) { strcpy_s(m_szEmail, szEmail); }
 	void setEmailCC(char *szEmailCC) { strcpy_s(m_szEmailCC, szEmailCC); }
@@ -748,9 +748,9 @@ public:
 	void setTFrame(int iTFrame) { m_iTFrame = iTFrame; }
 	//*********************************************************************************************************
 	//********************************* getters/setters options *********************************
-	bool getImageRotate(){ return m_bImageRotate;}
-	void setImageRotate(bool bImageRotate) {m_bImageRotate = bImageRotate;}
-	int getMean() { return m_iMean; }
+	//bool getImageRotate(){ return m_bImageRotate;}
+	//void setImageRotate(bool bImageRotate) {m_bImageRotate = bImageRotate;}
+	//int getMean() { return m_iMean; }
 	int getWindowSize() { return m_iWindowSize; }
 	void setWindowSize(int iWindowSize) { m_iWindowSize = iWindowSize; }
 	int getSizeClaheSkip() { return m_iSizeClaheSkip; }
